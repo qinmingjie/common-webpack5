@@ -7,7 +7,7 @@
   "author": "qinmj",
   "license": "MIT",
   "scripts": {
-    "dev": "webapck-dev-server",
+    "dev": "webpack-dev-server",
     "build": "webpack"
   },
   "devDependencies": {
