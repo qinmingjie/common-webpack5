@@ -31,6 +31,32 @@ module.exports = {
           'sass-loader'
         ],
         exclude: [/node_modules/, path.join(__dirname, './src/assets')]
+      },
+      {
+        test: /\.(png|jpg|jpeg|svg|)$/,
+        type: 'asset',
+        parser: {
+          dataUrlCondition: {
+            maxSize: 200 * 1024
+          }
+        },
+        generator: {
+          filename: 'image/[name]_[contenthash:4][ext]'
+        }
+      },
+      {
+        test: /\.(ttf|woff|woff2)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'font/[name][ext]'
+        }
+      },
+      {
+        test: /\.(mp3|mp4)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'media/[name]_[contenthash:4][ext]'
+        }
       }
     ]
   },
