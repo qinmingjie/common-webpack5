@@ -19,7 +19,8 @@ module.exports = {
           'style-loader',
           { loader: 'css-loader', options: { importLoaders: 1 } },
           'postcss-loader'
-        ]
+        ],
+        exclude: [/node_modules/, path.join(__dirname, './src/assets')]
       },
       {
         test: /\.(sass|scss)$/,
@@ -28,7 +29,8 @@ module.exports = {
           { loader: 'css-loader', options: { importLoaders: 2 } },
           'postcss-loader',
           'sass-loader'
-        ]
+        ],
+        exclude: [/node_modules/, path.join(__dirname, './src/assets')]
       }
     ]
   },
