@@ -57,6 +57,11 @@ module.exports = {
         generator: {
           filename: 'media/[name]_[contenthash:4][ext]'
         }
+      },
+      {
+        test: /\.js$/,
+        use: ['babel-loader'],
+        exclude: [/node_modules/]
       }
     ]
   },
