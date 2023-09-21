@@ -1,90 +1,15 @@
 const path = require('path');
+const commonConfig = require('./config/common');
+const prodConfig = require('./config/prod');
+const devConfig = require('./config/dev');
+const { merge } = require('webpack-merge');
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { DefinePlugin } = require('webpack');
-const { VueLoaderPlugin } = require('vue-loader');
-
-module.exports = {
-  mode: 'development',
-  entry: './src/main.js',
-  output: {
-    path: path.join(__dirname, 'dist'),
-    filename: '[name]_[contenthash:4].js',
-    clean: true
-  },
-  module: {
-    rules: [
-      {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          { loader: 'css-loader', options: { importLoaders: 1 } },
-          'postcss-loader'
-        ],
-        exclude: [/node_modules/, path.join(__dirname, './src/assets')]
-      },
-      {
-        test: /\.(sass|scss)$/,
-        use: [
-          'style-loader',
-          { loader: 'css-loader', options: { importLoaders: 2 } },
-          'postcss-loader',
-          'sass-loader'
-        ],
-        exclude: [/node_modules/, path.join(__dirname, './src/assets')]
-      },
-      {
-        test: /\.(png|jpg|jpeg|svg|)$/,
-        type: 'asset',
-        parser: {
-          dataUrlCondition: {
-            maxSize: 200 * 1024
-          }
-        },
-        generator: {
-          filename: 'image/[name]_[contenthash:4][ext]'
-        }
-      },
-      {
-        test: /\.(ttf|woff|woff2)$/,
-        type: 'asset/resource',
-        generator: {
-          filename: 'font/[name][ext]'
-        }
-      },
-      {
-        test: /\.(mp3|mp4)$/,
-        type: 'asset/resource',
-        generator: {
-          filename: 'media/[name]_[contenthash:4][ext]'
-        }
-      },
-      {
-        test: /\.(js|jsx)$/,
-        use: ['babel-loader'],
-        exclude: [/node_modules/]
-      },
-      {
-        test: /\.vue$/,
-        use: [
-          {
-            loader: 'vue-loader'
-          }
-        ],
-        exclude: [/node_modules/]
-      }
-    ]
-  },
-  resolve: {
-    extensions: ['.js', '.jsx', '.vue', '.ts', '.json']
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'public/index.html')
-    }),
-    new DefinePlugin({
-      TITLE: JSON.stringify('App')
-    }),
-    new VueLoaderPlugin()
-  ]
+module.exports = (env) => {
+  const { development = false, production = false } = env;
+  if (development) {
+    return merge(commonConfig, devConfig);
+  }
+  if (production) {
+    return merge(commonConfig, prodConfig);
+  }
 };
