@@ -2,6 +2,7 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { DefinePlugin } = require('webpack');
+const { VueLoaderPlugin } = require('vue-loader');
 
 module.exports = {
   mode: 'development',
@@ -59,8 +60,17 @@ module.exports = {
         }
       },
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         use: ['babel-loader'],
+        exclude: [/node_modules/]
+      },
+      {
+        test: /\.vue$/,
+        use: [
+          {
+            loader: 'vue-loader'
+          }
+        ],
         exclude: [/node_modules/]
       }
     ]
@@ -71,6 +81,7 @@ module.exports = {
     }),
     new DefinePlugin({
       TITLE: JSON.stringify('App')
-    })
+    }),
+    new VueLoaderPlugin()
   ]
 };
