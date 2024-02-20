@@ -5,11 +5,11 @@ const devConfig = require('./config/dev');
 const { merge } = require('webpack-merge');
 
 module.exports = (env) => {
-  const { development = false, production = false } = env;
+  const { development = false, production = false, lang = 'vue' } = env;
   if (development) {
-    return merge(commonConfig, devConfig);
+    return merge(commonConfig({ lang }), devConfig);
   }
   if (production) {
-    return merge(commonConfig, prodConfig);
+    return merge(commonConfig({ lang }), prodConfig);
   }
 };

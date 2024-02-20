@@ -1,5 +1,4 @@
 import React from 'react'
-import { createRoot } from 'react-dom/client'
 class Count extends React.Component {
   constructor() {
     super()
@@ -28,5 +27,4 @@ function Hello() {
   )
 }
 
-const root = createRoot(document.querySelector("#reactApp"))
-root.render(<Hello />)
+export default Hello

@@ -8,7 +8,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "webpack-dev-server --env development",
-    "build": "webpack --env production"
+    "build": "webpack --env production",
+    "react-dev": "webpack-dev-server --env development lang=react",
+    "react-build": "webpack --env production lang=react"
   },
   "devDependencies": {
     "@babel/core": "^7.22.20",
